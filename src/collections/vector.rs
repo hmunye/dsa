@@ -458,6 +458,19 @@ impl<T> Vector<T> {
     ///
     /// Takes *O*(*len*) time. All items must be dropped. In the worst case, all
     /// items are dropped when `T: Drop`.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// use dsa::vector;
+    /// use dsa::collections::Vector;
+    ///
+    /// let mut v = vector![1, 2, 3];
+    ///
+    /// v.clear();
+    ///
+    /// assert!(v.is_empty());
+    /// ```
     #[inline]
     pub fn clear(&mut self) {
         let elems: *mut [T] = &mut self[..];
