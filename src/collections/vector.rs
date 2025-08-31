@@ -1,5 +1,9 @@
-use std::alloc::{self, Layout}; // For memory allocation
-use std::fmt; // For debug printing
+//! A contiguous growable array type with heap-allocated contents.
+//!
+//! Just use [`Vec`] instead.
+
+use std::alloc::{self, Layout};
+use std::fmt;
 
 use core::cmp::{self, Ordering};
 use core::hash::{Hash, Hasher};
@@ -36,19 +40,19 @@ macro_rules! vector {
         $crate::collections::Vector::new()
     };
     // `$(,)?` allows for a trailing comma.
-    ($($elem:expr),+ $(,)?) => {{
+    ($($elem:expr),* $(,)?) => {{
         // Capacity can be determined at compile time.
         const _: usize = $crate::count![@COUNT; $($elem),*];
 
-        let mut v = Vector::with_capacity($crate::count![@COUNT; $($elem),*]);
-        $(v.push($elem);)+
+        let mut v = $crate::collections::Vector::with_capacity($crate::count![@COUNT; $($elem),*]);
+        $(v.push($elem);)*
         v
     }};
     ($elem:expr; $n:expr) => {{
         // Ensure the expression is only evaluated once.
         let count = $n;
 
-        let mut v = Vector::with_capacity(count);
+        let mut v = $crate::collections::Vector::with_capacity(count);
         v.extend(::core::iter::repeat($elem).take(count));
         v
     }};
@@ -81,9 +85,9 @@ pub struct Vector<T> {
 /// Implemented as a C-style iterator so reads can happen from both sides.
 #[derive(Debug)]
 pub struct IntoIter<T> {
-    /// Pointer to the start of the allocation.
+    /// Pointer to the start of the vector.
     start: *const T,
-    /// Pointer to the end of the allocation.
+    /// Pointer to the end of the vector.
     end: *const T,
     /// Internal buffer of the vector. Needed since the iterator takes
     /// ownership and we want to ensure it does not invoke it's destructor.
@@ -150,6 +154,9 @@ impl<T> Vector<T> {
     ///
     /// let vec_units = Vector::<()>::with_capacity(10);
     /// assert_eq!(vec_units.capacity(), usize::MAX);
+    ///
+    /// let empty: Vector<i32> = Vector::with_capacity(0);
+    /// assert_eq!(empty.capacity(), 0);
     /// ```
     #[inline]
     pub fn with_capacity(capacity: usize) -> Self {
@@ -256,7 +263,7 @@ impl<T> Vector<T> {
     ///
     /// assert_eq!(vec[2], 12);
     ///
-    /// vec.insert(2 ,44);
+    /// vec.insert(2, 44);
     ///
     /// assert_eq!(vec[2], 44);
     /// assert_eq!(vec[3], 12);
@@ -312,9 +319,7 @@ impl<T> Vector<T> {
     /// vec.push(13);
     ///
     /// assert_eq!(vec[2], 12);
-    ///
     /// assert_eq!(vec.remove(2), 12);
-    ///
     /// assert_eq!(vec[2], 13);
     /// ```
     pub fn remove(&mut self, index: usize) -> T {
@@ -350,7 +355,8 @@ impl<T> Vector<T> {
     /// # Time Complexity
     ///
     /// Takes *O*(*self.len - len*) time. All items after `len` must be dropped.
-    /// In the worst case, all remaining items are dropped when `T: Drop`.
+    /// In the worst case, all remaining items must invoke their destructors
+    /// when `T: Drop`.
     ///
     /// # Examples
     ///
@@ -448,7 +454,7 @@ impl<T> Vector<T> {
         self.buf.reserve(self.len, additional);
     }
 
-    /// Clears the vector, removing all values.
+    /// Clears the vector, dropping all values.
     ///
     /// # Note
     ///
@@ -457,7 +463,7 @@ impl<T> Vector<T> {
     /// # Time Complexity
     ///
     /// Takes *O*(*len*) time. All items must be dropped. In the worst case, all
-    /// items are dropped when `T: Drop`.
+    /// remaining items must invoke their destructors when `T: Drop`.
     ///
     /// # Examples
     ///
@@ -587,6 +593,7 @@ impl<T> Extend<T> for Vector<T> {
 
 impl<T> Deref for Vector<T> {
     type Target = [T];
+
     fn deref(&self) -> &[T] {
         unsafe { core::slice::from_raw_parts(self.as_ptr(), self.len) }
     }
@@ -644,9 +651,6 @@ macro_rules! impl_slice_eq {
         {
             #[inline]
             fn eq(&self, other: &$rhs) -> bool { self[..] == other[..] }
-
-            #[inline]
-            fn ne(&self, other: &$rhs) -> bool { self[..] != other[..] }
         }
     }
 }
@@ -678,6 +682,7 @@ impl<T: Ord> Ord for Vector<T> {
 impl<T: Hash> Hash for Vector<T> {
     fn hash<H: Hasher>(&self, state: &mut H) {
         self.len().hash(state);
+
         for elem in self.iter() {
             elem.hash(state);
         }
@@ -883,9 +888,32 @@ impl<T> Drop for RawVector<T> {
     }
 }
 
+unsafe impl<T: Send> Send for IntoIter<T> {}
+unsafe impl<T: Sync> Sync for IntoIter<T> {}
+
 unsafe impl<T: Send> Send for RawVector<T> {}
 unsafe impl<T: Sync> Sync for RawVector<T> {}
 
+#[allow(dead_code)]
+fn assert_properties() {
+    fn is_send<T: Send>() {}
+    fn is_sync<T: Sync>() {}
+
+    is_send::<Vector<i32>>();
+    is_sync::<Vector<i32>>();
+
+    is_send::<IntoIter<i32>>();
+    is_sync::<IntoIter<i32>>();
+
+    fn vector_covariant<'a, T>(x: Vector<&'static T>) -> Vector<&'a T> {
+        x
+    }
+    fn into_iter_covariant<'a, T>(x: IntoIter<&'static T>) -> IntoIter<&'a T> {
+        x
+    }
+}
+
+// https://github.com/rust-lang/rust/blob/master/library/alloctests/tests/vec.rs
 #[cfg(test)]
 mod tests {
     use super::*;
