@@ -15,8 +15,7 @@ use core::{marker, mem};
 /// # Examples
 ///
 /// ```
-/// use dsa::list;
-/// use dsa::collections::LinkedDeque;
+/// use dsa::collections::prelude::*;
 ///
 /// let mut list = list![1 => 2 => 3];
 /// assert_eq!(list.len(), 3);
@@ -28,8 +27,7 @@ use core::{marker, mem};
 /// ```
 ///
 /// ```
-/// use dsa::list;
-/// use dsa::collections::LinkedDeque;
+/// use dsa::collections::prelude::*;
 ///
 /// let list = list![1; 5];
 /// assert_eq!(list.len(), 5);
@@ -38,10 +36,10 @@ use core::{marker, mem};
 #[macro_export]
 macro_rules! list {
     () => {
-        $crate::collections::LinkedDeque::new()
+        $crate::collections::doubly_linked_deque::LinkedDeque::new();
     };
     ($($elem:expr)=>*) => {{
-        let mut list = $crate::collections::LinkedDeque::new();
+        let mut list = $crate::collections::doubly_linked_deque::LinkedDeque::new();
         $(list.push_back($elem);)*
         list
     }};
@@ -49,7 +47,7 @@ macro_rules! list {
         // Ensure the expression is only evaluated once.
         let count = $n;
 
-        let mut list = $crate::collections::LinkedDeque::new();
+        let mut list = $crate::collections::doubly_linked_deque::LinkedDeque::new();
         list.extend(::core::iter::repeat($elem).take(count));
         list
     }};
@@ -140,7 +138,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let list: LinkedDeque<i32> = LinkedDeque::new();
     /// ```
@@ -165,7 +163,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     /// list.push_front(3);
@@ -194,7 +192,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     /// list.push_front(3);
@@ -222,7 +220,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     /// list.push_front(3);
@@ -261,7 +259,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     ///
@@ -310,7 +308,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     /// list.push_front(3);
@@ -339,7 +337,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     /// list.push_front(3);
@@ -367,7 +365,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     /// list.push_back(3);
@@ -406,7 +404,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     ///
@@ -454,7 +452,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     ///
@@ -478,7 +476,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let list: LinkedDeque<i32> = LinkedDeque::new();
     ///
@@ -499,7 +497,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     ///
@@ -522,7 +520,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     ///
@@ -806,8 +804,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::list;
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list = list![1 => 2];
     ///
@@ -832,8 +829,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::list;
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list = list![44 => 45];
     ///
@@ -860,8 +856,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::list;
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list = list![44 => 45];
     ///
@@ -892,8 +887,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::list;
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list = list![44 => 45];
     ///
@@ -925,8 +919,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::list;
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list = list![1 => 2 => 3];
     ///
@@ -974,8 +967,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::list;
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list = list![1 => 2 => 3];
     ///
@@ -1022,8 +1014,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::list;
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     /// assert!(list_1.iter().eq([&1, &2, &3, &4, &5]));
@@ -1044,8 +1035,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// ```
     ///
     /// ```
-    /// use dsa::list;
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     /// assert!(list_1.iter().eq([&1, &2, &3, &4, &5]));
@@ -1111,8 +1101,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::list;
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     /// assert!(list_1.iter().eq([&1, &2, &3, &4, &5]));
@@ -1133,8 +1122,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// ```
     ///
     /// ```
-    /// use dsa::list;
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     /// assert!(list_1.iter().eq([&1, &2, &3, &4, &5]));
@@ -1199,8 +1187,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::list;
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     /// let list_2 = list![40 => 41 => 42];
@@ -1276,8 +1263,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::list;
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     /// let list_2 = list![40 => 41 => 42];
@@ -1347,8 +1333,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::list;
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     ///
@@ -1410,8 +1395,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::list;
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     ///
@@ -1468,8 +1452,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::list;
-    /// use dsa::collections::LinkedDeque;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     /// assert_eq!(list_1.len(), 5);
@@ -1536,7 +1519,7 @@ impl<'a, T> CursorMut<'a, T> {
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::collections::Vector;
+    use crate::collections::vector::Vector;
 
     fn generate_test() -> LinkedDeque<i32> {
         list_from(&[0, 1, 2, 3, 4, 5, 6])

@@ -18,8 +18,7 @@ use core::{marker, mem};
 /// - Create a `Vector` containing a given list of elements:
 ///
 /// ```
-/// use dsa::vector;
-/// use dsa::collections::Vector;
+/// use dsa::collections::prelude::*;
 ///
 /// let v = vector![1, 2, 3];
 /// assert_eq!(v, [1, 2, 3]);
@@ -28,8 +27,7 @@ use core::{marker, mem};
 /// - Create a `Vector` from a given element and size:
 ///
 /// ```
-/// use dsa::vector;
-/// use dsa::collections::Vector;
+/// use dsa::collections::prelude::*;
 ///
 /// let v = vector![String::from("hello"); 3];
 /// assert_eq!(v, ["hello", "hello", "hello"]);
@@ -37,14 +35,14 @@ use core::{marker, mem};
 #[macro_export]
 macro_rules! vector {
     () => {
-        $crate::collections::Vector::new()
+        $crate::collections::vector::Vector::new()
     };
     // `$(,)?` allows for a trailing comma.
     ($($elem:expr),* $(,)?) => {{
         // Capacity can be determined at compile time.
         const _: usize = $crate::count![@COUNT; $($elem),*];
 
-        let mut v = $crate::collections::Vector::with_capacity($crate::count![@COUNT; $($elem),*]);
+        let mut v = $crate::collections::vector::Vector::with_capacity($crate::count![@COUNT; $($elem),*]);
         $(v.push($elem);)*
         v
     }};
@@ -52,7 +50,7 @@ macro_rules! vector {
         // Ensure the expression is only evaluated once.
         let count = $n;
 
-        let mut v = $crate::collections::Vector::with_capacity(count);
+        let mut v = $crate::collections::vector::Vector::with_capacity(count);
         v.extend(::core::iter::repeat($elem).take(count));
         v
     }};
@@ -102,7 +100,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::Vector;
+    /// use dsa::collections::prelude::*;
     ///
     /// let vec: Vector<i32> = Vector::new();
     /// ```
@@ -133,7 +131,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::Vector;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut vec: Vector<i32> = Vector::with_capacity(10);
     ///
@@ -182,8 +180,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::vector;
-    /// use dsa::collections::Vector;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut vec: Vector<i32> = vector![1, 2];
     /// vec.push(3);
@@ -214,8 +211,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::vector;
-    /// use dsa::collections::Vector;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut vec: Vector<i32> = vector![1, 2];
     ///
@@ -251,8 +247,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::vector;
-    /// use dsa::collections::Vector;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut vec: Vector<i32> = Vector::with_capacity(10);
     ///
@@ -308,8 +303,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::vector;
-    /// use dsa::collections::Vector;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut vec: Vector<i32> = Vector::with_capacity(10);
     ///
@@ -363,8 +357,7 @@ impl<T> Vector<T> {
     /// Truncating a five element vector to two elements:
     ///
     /// ```
-    /// use dsa::vector;
-    /// use dsa::collections::Vector;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut vec = vector![1, 2, 3, 4, 5];
     /// vec.truncate(2);
@@ -376,8 +369,7 @@ impl<T> Vector<T> {
     /// length:
     ///
     /// ```
-    /// use dsa::vector;
-    /// use dsa::collections::Vector;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut vec = vector![1, 2, 3];
     /// vec.truncate(8);
@@ -391,8 +383,7 @@ impl<T> Vector<T> {
     /// [`clear`]: Vector::clear
     ///
     /// ```
-    /// use dsa::vector;
-    /// use dsa::collections::Vector;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut vec = vector![1, 2, 3];
     /// vec.truncate(0);
@@ -428,8 +419,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::vector;
-    /// use dsa::collections::Vector;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut vec = vector![1];
     /// vec.reserve(10);
@@ -437,7 +427,7 @@ impl<T> Vector<T> {
     /// ```
     ///
     /// ```
-    /// use dsa::collections::Vector;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut vec = Vector::with_capacity(10);
     /// assert!(vec.capacity() == 10);
@@ -468,8 +458,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::vector;
-    /// use dsa::collections::Vector;
+    /// use dsa::collections::prelude::*;
     ///
     /// let mut v = vector![1, 2, 3];
     ///
