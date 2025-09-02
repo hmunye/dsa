@@ -2,6 +2,10 @@
 //!
 //! The `LinkedDeque` allows pushing, popping, and accessing elements at either
 //! end in *constant* time.
+//!
+//! Using [Learn Rust With Entirely Too Many Linked Lists]
+//!
+//! [Learn Rust With Entirely Too Many Linked Lists]: https://rust-unofficial.github.io/too-many-lists/
 
 use std::fmt;
 

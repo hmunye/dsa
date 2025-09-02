@@ -19,5 +19,5 @@ rustup +nightly component add miri
 ```
 
 ```bash
-MIRIFLAGS="-Zmiri-permissive-provenance" cargo +nightly miri t
+cargo +nightly miri t
 ```

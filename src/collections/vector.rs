@@ -620,7 +620,10 @@ impl<T> IntoIterator for Vector<T> {
         IntoIter {
             start: buf.ptr.as_ptr(),
             end: if mem::size_of::<T>() == 0 {
-                ((buf.ptr.as_ptr() as usize) + len) as *const _
+                // Ensure the provenance of `buf.ptr` is copied.
+                buf.ptr
+                    .as_ptr()
+                    .with_addr((buf.ptr.as_ptr() as usize) + len)
             } else if len == 0 {
                 buf.ptr.as_ptr()
             } else {
@@ -687,7 +690,8 @@ impl<T> Iterator for IntoIter<T> {
         } else {
             unsafe {
                 if mem::size_of::<T>() == 0 {
-                    self.start = (self.start as usize + 1) as *const _;
+                    // Ensure the provenance of `self.start` is copied.
+                    self.start = self.start.with_addr(self.start as usize + 1);
                     Some(ptr::read(NonNull::<T>::dangling().as_ptr()))
                 } else {
                     let old_ptr = self.start;
