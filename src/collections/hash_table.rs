@@ -232,6 +232,14 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
     /// If the table did have this key present, the value is updated, and the
     /// old value is returned, but the key is not updated.
     ///
+    /// # Time Complexity
+    ///
+    /// Takes amortized *O*(1) time. If the insert would exceed the table's load
+    /// factor, *O*(*capacity*) time is taken to rehash and insert the table
+    /// buckets to a larger allocation. This expensive operation is offset by
+    /// the *O*(1) insertions it allows before reaching the load factor
+    /// threshold.
+    ///
     /// # Examples
     ///
     /// ```
@@ -309,6 +317,11 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
 
     /// Returns a reference to the value corresponding to the key.
     ///
+    /// # Time Complexity
+    ///
+    /// Takes average *O*(1) time. Worst case is *O*(*capacity*) if the hashing
+    /// function is not well-distributed or results in clustering.
+    ///
     /// # Examples
     ///
     /// ```
@@ -375,6 +388,11 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
     }
 
     /// Returns a mutable reference to the value corresponding to the key.
+    ///
+    /// # Time Complexity
+    ///
+    /// Takes average *O*(1) time. Worst case is *O*(*capacity*) if the hashing
+    /// function is not well-distributed or results in clustering.
     ///
     /// # Examples
     ///
@@ -444,6 +462,11 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
     }
 
     /// Returns the key-value pair corresponding to the supplied key.
+    ///
+    /// # Time Complexity
+    ///
+    /// Takes average *O*(1) time. Worst case is *O*(*capacity*) if the hashing
+    /// function is not well-distributed or results in clustering.
     ///
     /// # Examples
     ///
@@ -541,6 +564,11 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
 
     /// Removes a key from the table, returning the value at the key if the key
     /// was previously in the table.
+    ///
+    /// # Time Complexity
+    ///
+    /// Takes average *O*(1) time. Worst case is *O*(*capacity*) if the hashing
+    /// function is not well-distributed or results in clustering.
     ///
     /// # Examples
     ///
@@ -659,6 +687,11 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
 
     /// Returns `true` if the table contains a value for the specified key.
     ///
+    /// # Time Complexity
+    ///
+    /// Takes average *O*(1) time. Worst case is *O*(*capacity*) if the hashing
+    /// function is not well-distributed or results in clustering.
+    ///
     /// # Examples
     ///
     /// ```
@@ -676,6 +709,11 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
 
     /// Clears the table, removing all key-value pairs. Keeps the allocated
     /// memory for reuse.
+    ///
+    /// # Time Complexity
+    ///
+    /// Takes *O*(*len*) time. All items must be dropped. In the worst case, all
+    /// remaining items must invoke their destructors when `T: Drop`.
     ///
     /// # Examples
     ///

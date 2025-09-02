@@ -1015,6 +1015,11 @@ impl<'a, T> CursorMut<'a, T> {
     /// If the cursor is pointing to the "ghost" non-element then this will
     /// return the entire `LinkedDeque` and leave the cursor's list empty.
     ///
+    /// # Time Complexity
+    ///
+    /// Takes *O*(1) time. The list is split at the current cursor index, making
+    /// this operation *constant* time.
+    ///
     /// # Examples
     ///
     /// ```
@@ -1102,6 +1107,11 @@ impl<'a, T> CursorMut<'a, T> {
     /// If the cursor is pointing to the "ghost" non-element then this will
     /// return the entire `LinkedDeque` and leave the cursor's list empty.
     ///
+    /// # Time Complexity
+    ///
+    /// Takes *O*(1) time. The list is split at the current cursor index, making
+    /// this operation *constant* time.
+    ///
     /// # Examples
     ///
     /// ```
@@ -1188,6 +1198,11 @@ impl<'a, T> CursorMut<'a, T> {
     /// append the provided `LinkedDeque`. If it is pointing to the first
     /// element then this will prepend the provided `LinkedDeque`.
     ///
+    /// # Time Complexity
+    ///
+    /// Takes *O*(1) time. The splice occurs at the current cursor index, making
+    /// this operation *constant* time.
+    ///
     /// # Examples
     ///
     /// ```
@@ -1264,6 +1279,11 @@ impl<'a, T> CursorMut<'a, T> {
     /// prepend the provided `LinkedDeque`. If it is pointing to the last
     /// element then this will append the provided `LinkedDeque`.
     ///
+    /// # Time Complexity
+    ///
+    /// Takes *O*(1) time. The splice occurs at the current cursor index, making
+    /// this operation *constant* time.
+    ///
     /// # Examples
     ///
     /// ```
@@ -1334,6 +1354,11 @@ impl<'a, T> CursorMut<'a, T> {
     /// append the provided element. If it is pointing to the first element
     /// then this will prepend the provided element.
     ///
+    /// # Time Complexity
+    ///
+    /// Takes *O*(1) time. The insert occurs at the current cursor index, making
+    /// this operation *constant* time.
+    ///
     /// # Examples
     ///
     /// ```
@@ -1396,6 +1421,11 @@ impl<'a, T> CursorMut<'a, T> {
     /// prepend the provided element. If it is pointing to the last element
     /// then this will append the provided element.
     ///
+    /// # Time Complexity
+    ///
+    /// Takes *O*(1) time. The insert occurs at the current cursor index, making
+    /// this operation *constant* time.
+    ///
     /// # Examples
     ///
     /// ```
@@ -1452,6 +1482,11 @@ impl<'a, T> CursorMut<'a, T> {
     ///
     /// If an element is removed, the cursor is moved to the next element, or
     /// the "ghost" non-element if the tail is removed.
+    ///
+    /// # Time Complexity
+    ///
+    /// Takes *O*(1) time. The remove occurs at the current cursor index, making
+    /// this operation *constant* time.
     ///
     /// # Examples
     ///
