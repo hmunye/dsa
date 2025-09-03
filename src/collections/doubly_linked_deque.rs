@@ -19,7 +19,7 @@ use core::{marker, mem};
 /// # Examples
 ///
 /// ```
-/// use dsa::collections::prelude::*;
+/// use dsa::prelude::*;
 ///
 /// let mut list = list![1 => 2 => 3];
 /// assert_eq!(list.len(), 3);
@@ -31,7 +31,7 @@ use core::{marker, mem};
 /// ```
 ///
 /// ```
-/// use dsa::collections::prelude::*;
+/// use dsa::prelude::*;
 ///
 /// let list = list![1; 5];
 /// assert_eq!(list.len(), 5);
@@ -142,7 +142,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let list: LinkedDeque<i32> = LinkedDeque::new();
     /// ```
@@ -167,7 +167,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     /// list.push_front(3);
@@ -196,7 +196,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     /// list.push_front(3);
@@ -224,7 +224,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     /// list.push_front(3);
@@ -263,7 +263,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     ///
@@ -312,7 +312,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     /// list.push_front(3);
@@ -341,7 +341,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     /// list.push_front(3);
@@ -369,7 +369,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     /// list.push_back(3);
@@ -408,7 +408,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     ///
@@ -456,7 +456,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     ///
@@ -480,7 +480,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let list: LinkedDeque<i32> = LinkedDeque::new();
     ///
@@ -501,7 +501,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     ///
@@ -524,7 +524,7 @@ impl<T> LinkedDeque<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list: LinkedDeque<i32> = LinkedDeque::new();
     ///
@@ -808,7 +808,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list = list![1 => 2];
     ///
@@ -833,7 +833,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list = list![44 => 45];
     ///
@@ -860,7 +860,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list = list![44 => 45];
     ///
@@ -891,7 +891,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list = list![44 => 45];
     ///
@@ -923,7 +923,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list = list![1 => 2 => 3];
     ///
@@ -971,7 +971,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list = list![1 => 2 => 3];
     ///
@@ -1023,7 +1023,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     /// assert!(list_1.iter().eq([&1, &2, &3, &4, &5]));
@@ -1044,7 +1044,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// ```
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     /// assert!(list_1.iter().eq([&1, &2, &3, &4, &5]));
@@ -1115,7 +1115,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     /// assert!(list_1.iter().eq([&1, &2, &3, &4, &5]));
@@ -1136,7 +1136,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// ```
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     /// assert!(list_1.iter().eq([&1, &2, &3, &4, &5]));
@@ -1206,7 +1206,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     /// let list_2 = list![40 => 41 => 42];
@@ -1287,7 +1287,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     /// let list_2 = list![40 => 41 => 42];
@@ -1362,7 +1362,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     ///
@@ -1429,7 +1429,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     ///
@@ -1491,7 +1491,7 @@ impl<'a, T> CursorMut<'a, T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut list_1 = list![1 => 2 => 3 => 4 => 5];
     /// assert_eq!(list_1.len(), 5);

@@ -1,6 +1,8 @@
 //! A contiguous growable array type with heap-allocated contents.
 //!
-//! Just use [`Vec`] instead.
+//! Using [The Rustonomicon]
+//!
+//! [The Rustonomicon]: https://doc.rust-lang.org/nomicon/
 
 use std::alloc::{self, Layout};
 use std::fmt;
@@ -18,7 +20,7 @@ use core::{marker, mem};
 /// - Create a `Vector` containing a given list of elements:
 ///
 /// ```
-/// use dsa::collections::prelude::*;
+/// use dsa::prelude::*;
 ///
 /// let v = vector![1, 2, 3];
 /// assert_eq!(v, [1, 2, 3]);
@@ -27,7 +29,7 @@ use core::{marker, mem};
 /// - Create a `Vector` from a given element and size:
 ///
 /// ```
-/// use dsa::collections::prelude::*;
+/// use dsa::prelude::*;
 ///
 /// let v = vector![String::from("hello"); 3];
 /// assert_eq!(v, ["hello", "hello", "hello"]);
@@ -100,7 +102,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let vec: Vector<i32> = Vector::new();
     /// ```
@@ -131,7 +133,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut vec: Vector<i32> = Vector::with_capacity(10);
     ///
@@ -180,7 +182,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut vec: Vector<i32> = vector![1, 2];
     /// vec.push(3);
@@ -211,7 +213,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut vec: Vector<i32> = vector![1, 2];
     ///
@@ -247,7 +249,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut vec: Vector<i32> = Vector::with_capacity(10);
     ///
@@ -303,7 +305,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut vec: Vector<i32> = Vector::with_capacity(10);
     ///
@@ -357,7 +359,7 @@ impl<T> Vector<T> {
     /// Truncating a five element vector to two elements:
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut vec = vector![1, 2, 3, 4, 5];
     /// vec.truncate(2);
@@ -369,7 +371,7 @@ impl<T> Vector<T> {
     /// length:
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut vec = vector![1, 2, 3];
     /// vec.truncate(8);
@@ -383,7 +385,7 @@ impl<T> Vector<T> {
     /// [`clear`]: Vector::clear
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut vec = vector![1, 2, 3];
     /// vec.truncate(0);
@@ -419,7 +421,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut vec = vector![1];
     /// vec.reserve(10);
@@ -427,7 +429,7 @@ impl<T> Vector<T> {
     /// ```
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut vec = Vector::with_capacity(10);
     /// assert!(vec.capacity() == 10);
@@ -458,7 +460,7 @@ impl<T> Vector<T> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut v = vector![1, 2, 3];
     ///

@@ -12,7 +12,7 @@ use core::mem::{self, MaybeUninit};
 use core::ops::Index;
 use core::ptr;
 
-use crate::collections::prelude::*;
+use crate::prelude::*;
 
 /// Fowler–Noll–Vo (FNV-1a) non-cryptographic hash function
 #[derive(Debug, Copy, Clone)]
@@ -104,7 +104,7 @@ impl<K: Eq + Hash, V> HashTable<K, V, FnvBuildHasher> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut table: HashTable<&str, i32> = HashTable::new();
     /// ```
@@ -122,7 +122,7 @@ impl<K: Eq + Hash, V> HashTable<K, V, FnvBuildHasher> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut table: HashTable<&str, i32> = HashTable::with_capacity(10);
     /// ```
@@ -147,7 +147,7 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     /// use std::hash::RandomState;
     ///
     /// let s = RandomState::new();
@@ -169,7 +169,7 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     /// use std::hash::RandomState;
     ///
     /// let s = RandomState::new();
@@ -243,7 +243,7 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut table = HashTable::new();
     /// assert_eq!(table.insert(37, "a"), None);
@@ -325,7 +325,7 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut table = HashTable::new();
     /// table.insert(1, "a");
@@ -397,7 +397,7 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut table = HashTable::new();
     /// table.insert(1, "a");
@@ -473,7 +473,7 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
     /// ```
     /// use std::hash::{Hash, Hasher};
     ///
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// #[derive(Clone, Copy, Debug)]
     /// struct S {
@@ -573,7 +573,7 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut table = HashTable::new();
     /// table.insert(1, "a");
@@ -656,7 +656,7 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let table: HashTable<i32, &str> = HashTable::new();
     ///
@@ -695,7 +695,7 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut table = HashTable::new();
     /// table.insert(1, "a");
@@ -718,7 +718,7 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
     /// # Examples
     ///
     /// ```
-    /// use dsa::collections::prelude::*;
+    /// use dsa::prelude::*;
     ///
     /// let mut table = HashTable::new();
     /// table.insert(1, "a");
@@ -973,7 +973,7 @@ where
 mod tests {
     use std::hash::RandomState;
 
-    use crate::collections::prelude::*;
+    use crate::prelude::*;
 
     #[test]
     fn test_zero_capacities() {
