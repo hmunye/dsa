@@ -18,6 +18,8 @@ use core::{marker, mem};
 ///
 /// # Examples
 ///
+/// - Create a `LinkedDeque` containing a given list of elements:
+///
 /// ```
 /// use dsa::prelude::*;
 ///
@@ -29,6 +31,8 @@ use core::{marker, mem};
 /// assert_eq!(list.pop_back(), Some(2));
 /// assert_eq!(list.pop_back(), Some(1));
 /// ```
+///
+/// - Create a `LinkedDeque` from a given element and size:
 ///
 /// ```
 /// use dsa::prelude::*;

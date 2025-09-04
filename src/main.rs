@@ -1,3 +1,23 @@
+#[allow(unused_macros)]
+macro_rules! do_while {
+    (
+        init {
+            $($s:stmt;)*
+        }
+        do $do:block
+        while $cond:expr
+    ) => {{
+        $($s)*
+
+        loop {
+            $do
+            if !$cond {
+                break;
+            }
+        }
+    }};
+}
+
 fn main() {
     let mut arr = [0u8; 6];
     let ptr: *mut _ = arr.as_mut_ptr();

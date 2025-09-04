@@ -10,17 +10,23 @@ pub mod collections;
 /// Data Structures & Algorithms Prelude
 pub mod prelude {
     #[doc(no_inline)]
-    pub use crate::{list, vector};
+    pub use crate::{ht, list, singly, vector};
 
     #[doc(no_inline)]
     pub use super::collections::doubly_linked_deque::LinkedDeque;
     #[doc(no_inline)]
     pub use super::collections::hash_table::HashTable;
     #[doc(no_inline)]
+    pub use super::collections::singly_linked_list::SinglyLinked;
+    #[doc(no_inline)]
     pub use super::collections::vector::Vector;
 
     #[doc(no_inline)]
     pub use super::algorithms::binary_search::*;
+    #[doc(no_inline)]
+    pub use super::algorithms::bubble_sort::*;
+    #[doc(no_inline)]
+    pub use super::algorithms::insertion_sort::*;
     #[doc(no_inline)]
     pub use super::algorithms::linear_search::*;
 }

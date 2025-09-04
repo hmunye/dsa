@@ -5,6 +5,46 @@
 //! [Hash Table]: https://en.wikipedia.org/wiki/Hash_table
 //! [`HashMap`]: std::collections::HashMap
 
+/// Creates a `HashTable` with the provided key/value types with optional
+/// hasher.
+///
+/// # Examples
+///
+/// - Create a `HashTable` with the provided key/value types:
+///
+/// ```
+/// use dsa::prelude::*;
+///
+/// let mut table = ht![String => i32];
+/// table.insert("key".to_string(), 32);
+///
+/// assert_eq!(table.remove(&"key".to_string()), Some(32));
+/// ```
+///
+/// - Create a `HashTable` with the provided key/value types and hasher:
+///
+/// ```
+/// use std::hash::RandomState;
+///
+/// use dsa::prelude::*;
+///
+/// let mut table = ht![String => i32 where RandomState { RandomState::new() }];
+///
+/// table.insert("key".to_string(), 32);
+///
+/// assert_eq!(table.remove(&"key".to_string()), Some(32));
+/// ```
+#[macro_export]
+macro_rules! ht {
+    ($key:ty => $value:ty) => {
+        $crate::collections::hash_table::HashTable::<$key, $value>::new()
+    };
+
+    ($key:ty => $value:ty where $hashty:ty { $hasher:expr }) => {
+        $crate::collections::hash_table::HashTable::<$key, $value, $hashty>::with_hasher($hasher)
+    };
+}
+
 use std::fmt;
 
 use core::hash::{BuildHasher, Hash, Hasher};
@@ -629,10 +669,9 @@ impl<K: Eq + Hash, V, H: BuildHasher + Clone> HashTable<K, V, H> {
                             &mut self.bucket_slice_mut()[probe],
                             MaybeUninit::uninit(),
                         );
-                        let (mut key, value) = kv.assume_init();
 
-                        // Ensure the key is dropped.
-                        ptr::drop_in_place(&raw mut key);
+                        // `key` calls it's destructor...
+                        let (_, value) = kv.assume_init();
 
                         // Mark bucket as a `TOMBSTONE`.
                         self.ctrl_slice_mut()[probe] = Self::CTRL_TOMBSTONE;
@@ -977,13 +1016,13 @@ mod tests {
 
     #[test]
     fn test_zero_capacities() {
-        let m: HashTable<i32, i32> = HashTable::new();
+        let m = ht![i32 => i32];
         assert_eq!(m.capacity(), 0);
 
         let m: HashTable<i32, i32> = HashTable::default();
         assert_eq!(m.capacity(), 0);
 
-        let m: HashTable<i32, i32, RandomState> = HashTable::with_hasher(RandomState::new());
+        let m = ht![i32 => i32 where RandomState { RandomState::new() }];
         assert_eq!(m.capacity(), 0);
 
         let m: HashTable<i32, i32> = HashTable::with_capacity(0);

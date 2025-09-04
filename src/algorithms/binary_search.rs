@@ -3,25 +3,6 @@
 //!
 //! [Binary Search]: https://en.wikipedia.org/wiki/Binary_search
 
-macro_rules! do_while {
-    (
-        init {
-            $($s:stmt;)*
-        }
-        do $do:block
-        while $cond:expr
-    ) => {{
-        $($s)*
-
-        loop {
-            $do
-            if !$cond {
-                break;
-            }
-        }
-    }};
-}
-
 /// Returns the index of the `target` within the sorted array, or [`None`] if
 /// it was not found.
 ///
@@ -42,25 +23,19 @@ macro_rules! do_while {
 /// assert_eq!(binary_search(&arr, &40), None);
 /// ```
 pub fn binary_search<T: Ord>(arr: &[T], target: &T) -> Option<usize> {
-    do_while! {
-        init {
-            let mut lo = 0;
-            let mut hi = arr.len();
+    let mut lo = 0;
+    let mut hi = arr.len();
+
+    while lo < hi {
+        let m = lo + ((hi - lo) >> 1);
+
+        if arr[m] == *target {
+            return Some(m);
+        } else if arr[m] < *target {
+            lo = m + 1;
+        } else {
+            hi = m;
         }
-        do {
-            if hi == 0 {
-                return None;
-            }
-            let m = lo + ((hi - lo) >> 1);
-            if arr[m] == *target {
-                return Some(m);
-            } else if arr[m] < *target {
-                lo = m + 1;
-            } else {
-                hi = m;
-            }
-        }
-        while lo < hi
     }
 
     None
