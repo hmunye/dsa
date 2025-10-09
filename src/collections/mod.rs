@@ -1,4 +1,4 @@
 //! Implementations of Collection Types.
 
-mod dynarray;
-pub use dynarray::DynArray;
+mod dyn_array;
+pub use dyn_array::DynArray;

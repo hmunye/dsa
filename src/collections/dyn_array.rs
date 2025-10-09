@@ -4,6 +4,11 @@ use std::ops::{Deref, DerefMut};
 use std::ptr::{self, NonNull};
 use std::{fmt, mem, slice};
 
+/*
+* Reference:
+* https://doc.rust-lang.org/nomicon/vec/vec.html
+*/
+
 /// Creates a `DynArray` containing the arguments.
 #[macro_export]
 macro_rules! dyn_array {
