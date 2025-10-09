@@ -10,6 +10,14 @@ To include `dsa` in your project as a dependency:
 cargo add --git https://github.com/hmunye/dsa.git
 ```
 
+## Testing
+
+```bash
+rustup +nightly component add miri
+cargo +nightly miri test
+```
+> Requires the 'nightly' channel.
+
 ## License
 
 This project is licensed under the [MIT License].
