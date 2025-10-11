@@ -219,6 +219,18 @@ impl<T> DynArray<T> {
         self.inner.capacity()
     }
 
+    /// Returns the number of elements in the array.
+    #[inline]
+    pub const fn len(&self) -> usize {
+        self.len
+    }
+
+    /// Returns `true` if the array contains no elements.
+    #[inline]
+    pub const fn is_empty(&self) -> bool {
+        self.len == 0
+    }
+
     /// Returns a raw pointer to the array’s buffer, or a dangling raw pointer
     /// valid for zero sized reads if the array didn’t allocate.
     #[inline]
@@ -505,7 +517,7 @@ impl<T> RawArray<T> {
 unsafe impl<T: Send> Send for RawArray<T> {}
 
 // SAFETY: Since there are public methods to access `&T` from a `&RawArray<T>`
-// in an unsynchronized manner (e.g., `first`, `get`), `T` must be `Sync` for
+// without synchronization (e.g., `first`, `get`), `T` must be `Sync` for
 // `RawArray<T>` to be considered `Sync`. Additionally, `RawArray<T>` does not
 // use any form of interior mutability. All mutations occur through exclusive
 // references (`&mut`).
@@ -683,7 +695,6 @@ impl RawArrayInner {
 ///
 /// [RFC 1238]: https://rust-lang.github.io/rfcs/1238-nonparametric-dropck.html
 /// [`PhantomData`]: std::marker::PhantomData
-#[cfg(doctest)]
 #[allow(dead_code)]
 fn dropck() {}
 
