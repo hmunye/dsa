@@ -5,3 +5,6 @@ pub use dyn_array::DynArray;
 
 pub mod forward_list;
 pub use forward_list::ForwardList;
+
+pub mod list;
+pub use list::List;

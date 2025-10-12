@@ -15,5 +15,5 @@ pub mod prelude {
     //! Data Structures & Algorithms Prelude.
 
     pub use super::algorithms;
-    pub use super::collections::DynArray;
+    pub use super::collections::{DynArray, ForwardList, List};
 }
