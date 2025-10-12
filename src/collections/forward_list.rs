@@ -12,6 +12,11 @@
 //! [reverse]:    ForwardList::reverse
 //! [find]:       ForwardList::find
 
+/*
+* Reference:
+* https://rust-unofficial.github.io/too-many-lists/sixth.html
+*/
+
 use std::borrow::Borrow;
 use std::cmp::Ordering;
 use std::fmt;

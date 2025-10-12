@@ -12,6 +12,11 @@ use std::marker::PhantomData;
 use std::ptr::NonNull;
 use std::{fmt, mem};
 
+/*
+* Reference:
+* https://rust-unofficial.github.io/too-many-lists/sixth.html
+*/
+
 /// A doubly-linked list with owned nodes.
 ///
 /// # Time Complexities
