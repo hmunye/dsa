@@ -2,9 +2,9 @@
 //!
 //! # Time Complexities
 //!
-//! | [push_*] | [pop_*] |
-//! |----------|---------|
-//! |  *O*(1)  | *O*(1)  |
+//! | push_* | pop_*  |
+//! |--------|--------|
+//! | *O*(1) | *O*(1) |
 
 use std::cmp::Ordering;
 use std::hash::{Hash, Hasher};
@@ -21,9 +21,9 @@ use std::{fmt, mem};
 ///
 /// # Time Complexities
 ///
-/// | [push_*] | [pop_*] |
-/// |----------|---------|
-/// |  *O*(1)  | *O*(1)  |
+/// | push_* | pop_*  |
+/// |--------|--------|
+/// | *O*(1) | *O*(1) |
 pub struct List<T> {
     /// Pointer to the first node of the list.
     head: Link<T>,

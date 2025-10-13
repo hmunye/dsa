@@ -8,3 +8,6 @@ pub use forward_list::ForwardList;
 
 pub mod list;
 pub use list::List;
+
+mod ring_buffer;
+pub use ring_buffer::RingBuffer;
