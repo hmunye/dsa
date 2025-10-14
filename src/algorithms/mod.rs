@@ -7,3 +7,6 @@ pub use gcd::gcd;
 
 mod binary_power;
 pub use binary_power::binary_power;
+
+mod modular_inverse;
+pub use modular_inverse::modular_inverse;

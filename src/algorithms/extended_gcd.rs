@@ -8,6 +8,9 @@
 ///      ax + by = gcd(a,b)
 /// ```
 ///
+/// One important application of Extended Euclidean Algorithm is in finding
+/// `modular inverses`.
+///
 /// [Bézout's Identity]: https://en.wikipedia.org/wiki/B%C3%A9zout%27s_identity
 /// [Euclidean Algorithm]: https://en.wikipedia.org/wiki/Euclidean_algorithm
 pub fn extended_gcd(mut a: usize, mut b: usize) -> (usize, isize, isize) {
