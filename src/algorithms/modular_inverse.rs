@@ -9,9 +9,7 @@ use super::extended_gcd::extended_gcd;
 ///     a * x ≡ 1 (mod m)
 /// ```
 ///
-/// Using in cryptography, in algorithms such as `RSA`, where you need to
-/// compute the modular inverse of large numbers, digital signatures, and
-/// hashing functions.
+/// Used in cryptography (e.g., RSA), digital signatures, and hashing functions.
 pub fn modular_inverse(a: usize, m: usize) -> Option<usize> {
     // Uses the `Extended Euclidean Algorithm` to find the modular inverse, if
     // it exists. The modular inverse of `a` under modulus `m` is the value `x`

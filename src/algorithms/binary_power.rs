@@ -25,7 +25,7 @@ pub fn binary_power(mut x: usize, mut exp: usize) -> usize {
 
         x *= x;
 
-        // Halving `exp` reduces the problem size exponentially.
+        // Halving `exp` reduces the problem size.
         exp /= 2;
     }
 
