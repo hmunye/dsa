@@ -18,7 +18,7 @@ pub fn binary_power(mut x: usize, mut exp: usize) -> usize {
     let mut y = 1;
 
     while exp > 1 {
-        if exp % 2 != 0 {
+        if !exp.is_multiple_of(2) {
             y *= x;
             exp -= 1; // Decrease `exp` by 1 to make it even.
         }
