@@ -17,3 +17,6 @@ pub use binary_search::binary_search;
 
 mod quicksort;
 pub use quicksort::{quick_sort, quick_sort_iterative};
+
+mod mergesort;
+pub use mergesort::merge_sort;
