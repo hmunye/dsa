@@ -20,3 +20,6 @@ pub use quicksort::{quick_sort, quick_sort_iterative};
 
 mod mergesort;
 pub use mergesort::merge_sort;
+
+mod heapsort;
+pub use heapsort::heap_sort;
