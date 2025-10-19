@@ -11,3 +11,6 @@ pub use list::List;
 
 mod ring_buffer;
 pub use ring_buffer::RingBuffer;
+
+mod bst;
+pub use bst::BSTree;
