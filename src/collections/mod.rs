@@ -14,3 +14,6 @@ pub use ring_buffer::RingBuffer;
 
 mod bst;
 pub use bst::BSTree;
+
+mod avl;
+pub use avl::AVL;

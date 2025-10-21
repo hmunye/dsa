@@ -421,6 +421,8 @@ mod tests {
         bst.insert(10);
         bst.insert(10);
 
+        assert_eq!(bst.len(), 1);
+
         let inorder: Vec<_> = bst.iter_sorted().cloned().collect();
         assert_eq!(inorder, vec![10]);
     }
