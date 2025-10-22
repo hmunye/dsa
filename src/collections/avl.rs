@@ -124,6 +124,25 @@ impl<T: Ord> AVL<T> {
         self.len == 0
     }
 
+    /// Returns the height of the tree.
+    pub fn height(&self) -> usize {
+        fn tree_height<T>(node: Link<T>) -> usize {
+            unsafe {
+                match node {
+                    Some(node) => {
+                        let left = tree_height(node.as_ref().left);
+                        let right = tree_height(node.as_ref().right);
+
+                        1 + std::cmp::max(left, right)
+                    }
+                    None => 0,
+                }
+            }
+        }
+
+        tree_height(self.root)
+    }
+
     /// Recursively inserts the given item into the tree, ignoring duplicates,
     /// returning the updated root pointer and boolean indicating if insertion
     /// occurred.
@@ -172,7 +191,6 @@ impl<T: Ord> AVL<T> {
         T: Borrow<Q>,
         Q: Ord,
     {
-        // TODO: fix dangling pointer during removal.
         if let Some(node) = root {
             unsafe {
                 let item = match node.as_ref().item.borrow().cmp(key) {
@@ -269,8 +287,8 @@ impl<T: Ord> AVL<T> {
         unsafe {
             // Update the height of the node.
             if update_height {
-                let left_height = AVL::height(node.as_ref().left);
-                let right_height = AVL::height(node.as_ref().right);
+                let left_height = AVL::node_height(node.as_ref().left);
+                let right_height = AVL::node_height(node.as_ref().right);
 
                 (*node.as_ptr()).height = 1 + std::cmp::max(left_height, right_height);
             }
@@ -332,13 +350,13 @@ impl<T: Ord> AVL<T> {
 
                 // Update pivot and node heights.
                 (*left.as_ptr()).height = 1 + std::cmp::max(
-                    AVL::height(left.as_ref().left),
-                    AVL::height(left.as_ref().right),
+                    AVL::node_height(left.as_ref().left),
+                    AVL::node_height(left.as_ref().right),
                 );
 
                 (*node.as_ptr()).height = 1 + std::cmp::max(
-                    AVL::height(node.as_ref().left),
-                    AVL::height(node.as_ref().right),
+                    AVL::node_height(node.as_ref().left),
+                    AVL::node_height(node.as_ref().right),
                 );
 
                 Some(left)
@@ -369,13 +387,13 @@ impl<T: Ord> AVL<T> {
 
                 // Update pivot and node heights.
                 (*right.as_ptr()).height = 1 + std::cmp::max(
-                    AVL::height(right.as_ref().left),
-                    AVL::height(right.as_ref().right),
+                    AVL::node_height(right.as_ref().left),
+                    AVL::node_height(right.as_ref().right),
                 );
 
                 (*node.as_ptr()).height = 1 + std::cmp::max(
-                    AVL::height(node.as_ref().left),
-                    AVL::height(node.as_ref().right),
+                    AVL::node_height(node.as_ref().left),
+                    AVL::node_height(node.as_ref().right),
                 );
 
                 Some(right)
@@ -421,7 +439,8 @@ impl<T: Ord> AVL<T> {
     const fn balance_factor(root: Link<T>) -> isize {
         match root {
             Some(n) => unsafe {
-                AVL::height(n.as_ref().left) as isize - AVL::height(n.as_ref().right) as isize
+                AVL::node_height(n.as_ref().left) as isize
+                    - AVL::node_height(n.as_ref().right) as isize
             },
             None => 0,
         }
@@ -429,7 +448,7 @@ impl<T: Ord> AVL<T> {
 
     /// Returns the height of a given node, or 0 if [`None`].
     #[inline]
-    const fn height(node: Link<T>) -> usize {
+    const fn node_height(node: Link<T>) -> usize {
         match node {
             Some(n) => unsafe { n.as_ref().height },
             None => 0,
@@ -595,5 +614,19 @@ mod tests {
         }
 
         assert_eq!(avl.len(), 0);
+    }
+
+    #[test]
+    fn test_balance_height() {
+        let mut avl = AVL::new();
+
+        for i in 1..=100 {
+            avl.insert(i);
+        }
+
+        let height = avl.height();
+        println!("height: {}", height);
+
+        assert!(height <= 2 * usize::ilog2(100) as usize);
     }
 }

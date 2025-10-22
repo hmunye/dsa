@@ -269,6 +269,25 @@ impl<T: Ord> BSTree<T> {
         self.len == 0
     }
 
+    /// Returns the height of the tree.
+    pub fn height(&self) -> usize {
+        fn tree_height<T>(node: Link<T>) -> usize {
+            unsafe {
+                match node {
+                    Some(node) => {
+                        let left = tree_height(node.as_ref().left);
+                        let right = tree_height(node.as_ref().right);
+
+                        1 + std::cmp::max(left, right)
+                    }
+                    None => 0,
+                }
+            }
+        }
+
+        tree_height(self.root)
+    }
+
     /// Removes all items from the tree.
     pub fn clear(&mut self) {
         if let Some(root) = self.root {
@@ -538,5 +557,19 @@ mod tests {
         let inorder: Vec<_> = bst.iter_sorted().cloned().collect();
 
         assert_eq!(inorder, values);
+    }
+
+    #[test]
+    fn test_balance_height() {
+        let mut bst = BSTree::new();
+
+        for i in 1..=100 {
+            bst.insert(i);
+        }
+
+        let height = bst.height();
+        println!("height: {}", height);
+
+        assert_eq!(height, 100);
     }
 }
