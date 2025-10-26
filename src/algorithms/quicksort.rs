@@ -65,9 +65,10 @@ fn partition<T: Ord>(arr: &mut [T]) -> usize {
     let pivot = median_of_three(arr);
 
     // Swap the pivot with the first element to make swapping simpler.
-    if pivot != 0 {
-        arr.swap(0, pivot);
-    }
+    arr.swap(0, pivot);
+
+    // Shadow `pivot`, since it has been swapped to index 0.
+    let pivot = 0;
 
     // Track where the next element smaller than the pivot should be swapped.
     let mut i = 1;
