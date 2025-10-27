@@ -17,3 +17,6 @@ pub use bst::BSTree;
 
 mod avl;
 pub use avl::AVL;
+
+mod min_heap;
+pub use min_heap::MinHeap;

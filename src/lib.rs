@@ -15,5 +15,5 @@ pub mod prelude {
     //! Data Structures & Algorithms Prelude.
 
     pub use super::algorithms::{binary_search, heap_sort, merge_sort, quick_sort};
-    pub use super::collections::{AVL, BSTree, DynArray, ForwardList, List};
+    pub use super::collections::{AVL, DynArray, ForwardList, List, MinHeap, RingBuffer};
 }
