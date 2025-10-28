@@ -259,6 +259,74 @@ fn adj_bfs(adj: &[Vec<usize>], start: usize) -> Vec<usize> {
     out
 }
 
+// TODO: use heap instead for *O*((v+e) log_v) time complexity instead of
+// *O*(v^2 + e) time complexity.
+fn dijkstra_list(adj: &[Vec<(usize, usize)>], source: usize, sink: usize) -> Vec<usize> {
+    fn has_unvisited(seen: &[bool], dists: &[usize]) -> bool {
+        for (i, seen) in seen.iter().enumerate() {
+            if !*seen && dists[i] < usize::MAX {
+                return true;
+            }
+        }
+
+        false
+    }
+
+    fn shortest_unvisited(seen: &[bool], dists: &[usize]) -> usize {
+        let mut idx = 0;
+        let mut lowest_dist = usize::MAX;
+
+        for (i, seen) in seen.iter().enumerate() {
+            if *seen {
+                continue;
+            }
+
+            if dists[i] < lowest_dist {
+                lowest_dist = dists[i];
+                idx = i;
+            }
+        }
+
+        idx
+    }
+
+    let mut prev = vec![usize::MAX; adj.len()];
+    let mut seen = vec![false; adj.len()];
+    let mut dists = vec![usize::MAX; adj.len()];
+
+    dists[source] = 0;
+
+    while has_unvisited(&seen, &dists) {
+        let vertex = shortest_unvisited(&seen, &dists);
+        seen[vertex] = true;
+
+        for (edge, weight) in &adj[vertex] {
+            if seen[*edge] {
+                continue;
+            };
+
+            let dist = dists[vertex] + *weight;
+            if dist < dists[*edge] {
+                dists[*edge] = dist;
+                prev[*edge] = vertex;
+            }
+        }
+    }
+
+    let mut out = Vec::new();
+    let mut curr = sink;
+
+    while prev[curr] != usize::MAX {
+        out.push(curr);
+        curr = prev[curr];
+    }
+
+    out.push(source);
+    out.reverse();
+
+    out
+}
+
 fn main() {
     #[allow(clippy::disallowed_names)]
     let mut foo = [99, 1, 69420, 4, 1337, 71, 90, 420, 81, 3, 69];
@@ -337,6 +405,19 @@ fn main() {
         vec![1, 2],
     ];
 
-    println!("DFS: {:?}", adj_dfs(&adj_list, 0));
-    println!("BFS: {:?}", adj_bfs(&adj_list, 0));
+    println!("graph DFS: {:?}", adj_dfs(&adj_list, 0));
+    println!("graph BFS: {:?}", adj_bfs(&adj_list, 0));
+
+    let adj_list = vec![
+        vec![(1, 7), (2, 9), (3, 14)],
+        vec![(0, 7), (2, 10), (4, 15)],
+        vec![(0, 9), (1, 10), (3, 11), (4, 2)],
+        vec![(0, 14), (2, 11), (4, 9)],
+        vec![(1, 15), (2, 2), (3, 9)],
+    ];
+
+    println!(
+        "Dijkstra's Shortest Path (0-4): {:?}",
+        dijkstra_list(&adj_list, 0, 4)
+    );
 }
