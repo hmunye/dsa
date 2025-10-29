@@ -259,56 +259,59 @@ fn adj_bfs(adj: &[Vec<usize>], start: usize) -> Vec<usize> {
     out
 }
 
-// TODO: use heap instead for *O*((v+e) log_v) time complexity instead of
-// *O*(v^2 + e) time complexity.
-fn dijkstra_list(adj: &[Vec<(usize, usize)>], source: usize, sink: usize) -> Vec<usize> {
-    fn has_unvisited(seen: &[bool], dists: &[usize]) -> bool {
-        for (i, seen) in seen.iter().enumerate() {
-            if !*seen && dists[i] < usize::MAX {
-                return true;
-            }
-        }
+#[derive(Copy, Clone, Eq, PartialEq)]
+struct Entry {
+    edge: usize,
+    weight: usize,
+}
 
-        false
+impl Ord for Entry {
+    fn cmp(&self, other: &Self) -> std::cmp::Ordering {
+        other.weight.cmp(&self.weight)
     }
+}
 
-    fn shortest_unvisited(seen: &[bool], dists: &[usize]) -> usize {
-        let mut idx = 0;
-        let mut lowest_dist = usize::MAX;
-
-        for (i, seen) in seen.iter().enumerate() {
-            if *seen {
-                continue;
-            }
-
-            if dists[i] < lowest_dist {
-                lowest_dist = dists[i];
-                idx = i;
-            }
-        }
-
-        idx
+impl PartialOrd for Entry {
+    fn partial_cmp(&self, other: &Self) -> Option<std::cmp::Ordering> {
+        Some(self.cmp(other))
     }
+}
 
-    let mut prev = vec![usize::MAX; adj.len()];
-    let mut seen = vec![false; adj.len()];
-    let mut dists = vec![usize::MAX; adj.len()];
+fn dijkstra_list(adj: &[Vec<Entry>], source: usize, sink: usize) -> Vec<usize> {
+    let n = adj.len();
+
+    let mut prev = vec![usize::MAX; n];
+    let mut dists = vec![usize::MAX; n];
+    let mut heap = std::collections::BinaryHeap::with_capacity(n);
 
     dists[source] = 0;
+    heap.push(Entry {
+        edge: source,
+        weight: 0,
+    });
 
-    while has_unvisited(&seen, &dists) {
-        let vertex = shortest_unvisited(&seen, &dists);
-        seen[vertex] = true;
+    while let Some(Entry {
+        edge: u,
+        weight: du,
+    }) = heap.pop()
+    {
+        if du > dists[u] {
+            continue;
+        }
 
-        for (edge, weight) in &adj[vertex] {
-            if seen[*edge] {
-                continue;
-            };
+        if u == sink {
+            break;
+        }
 
-            let dist = dists[vertex] + *weight;
-            if dist < dists[*edge] {
-                dists[*edge] = dist;
-                prev[*edge] = vertex;
+        for &Entry { edge: v, weight: w } in &adj[u] {
+            let alt = du + w;
+            if alt < dists[v] {
+                dists[v] = alt;
+                prev[v] = u;
+                heap.push(Entry {
+                    edge: v,
+                    weight: alt,
+                });
             }
         }
     }
@@ -408,12 +411,34 @@ fn main() {
     println!("graph DFS: {:?}", adj_dfs(&adj_list, 0));
     println!("graph BFS: {:?}", adj_bfs(&adj_list, 0));
 
+    #[rustfmt::skip]
     let adj_list = vec![
-        vec![(1, 7), (2, 9), (3, 14)],
-        vec![(0, 7), (2, 10), (4, 15)],
-        vec![(0, 9), (1, 10), (3, 11), (4, 2)],
-        vec![(0, 14), (2, 11), (4, 9)],
-        vec![(1, 15), (2, 2), (3, 9)],
+        vec![
+            Entry { edge: 1, weight: 7 },
+            Entry { edge: 2, weight: 9 },
+            Entry { edge: 3, weight: 14 },
+        ],
+        vec![
+            Entry { edge: 0, weight: 7 },
+            Entry { edge: 2, weight: 10 },
+            Entry { edge: 4, weight: 15 },
+        ],
+        vec![
+            Entry { edge: 0, weight: 9 },
+            Entry { edge: 1, weight: 10 },
+            Entry { edge: 3, weight: 11 },
+            Entry { edge: 4, weight: 2 },
+        ],
+        vec![
+            Entry { edge: 0, weight: 14 },
+            Entry { edge: 2, weight: 11 },
+            Entry { edge: 4, weight: 9 },
+        ],
+        vec![
+            Entry { edge: 1, weight: 15 },
+            Entry { edge: 2, weight: 2 },
+            Entry { edge: 3, weight: 9 },
+        ],
     ];
 
     println!(
